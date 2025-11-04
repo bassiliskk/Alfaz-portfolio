@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>Muhammad Alfaz – HR & Leadership Aspirant</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#121212" />
   <meta name="description" content="Curious student focused on people, teams, and leadership. Helping others shine." />
 
@@ -27,295 +27,194 @@
   }
   </script>
 
-  <!-- Fonts: preconnect + swap -->
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500&display=swap" rel="stylesheet" />
-
   <link rel="icon" href="/favicon.ico" />
+
   <style>
     :root{
-      /* Color system */
-      --bg:#121212;
-      --paper:#1b1b1b;
-      --ink:#f2f2f2;
-      --quiet:#b3b3b3; /* slightly higher contrast */
-      --line:#2a2a2a;
-      --accent:#ffb86c;
-
-      /* Layout & type */
-      --radius:12px;
-      --space-1:.5rem;
-      --space-2:1rem;
-      --space-3:1.5rem;
-      --space-4:2rem;
-      --space-5:3rem;
-      --max:780px;
-
-      /* Sticky header height (updated by JS) */
-      --headerH: 64px;
-
-      /* Motion */
-      --e: cubic-bezier(.22,1,.36,1);
-      --t-fast:160ms;
-      --t-med:260ms;
-      --shadow-1: 0 1px 2px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.25);
-      --shadow-0: 0 1px 2px rgba(0,0,0,.15);
+      --bg:#121212; --paper:#1b1b1b; --ink:#f2f2f2; --quiet:#b3b3b3;
+      --line:#2a2a2a; --accent:#ffb86c;
+      --radius:12px; --space-1:.5rem; --space-2:1rem; --space-3:1.5rem; --space-4:2rem; --space-5:3rem;
+      --max:780px; --headerH:64px;
+      --e:cubic-bezier(.22,1,.36,1); --t-fast:160ms; --t-med:260ms;
+      --shadow-1:0 1px 2px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.25);
+      --shadow-0:0 1px 2px rgba(0,0,0,.15);
     }
 
     *{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
     body{
-      background:
-        radial-gradient(1200px 600px at 50% -10%, #1a1a1a 0%, transparent 60%),
-        var(--bg);
-      color:var(--ink);
-      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      line-height:1.7;
-      font-size:17px;
-      -webkit-font-smoothing:antialiased;
-      text-rendering:optimizeLegibility;
-      opacity:0; transform:translateY(6px);
-      animation: bodyIn .6s var(--e) forwards;
+      background: radial-gradient(1200px 600px at 50% -10%, #1a1a1a 0%, transparent 60%), var(--bg);
+      color:var(--ink); font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      line-height:1.7; font-size:17px; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+      padding-left:env(safe-area-inset-left); padding-right:env(safe-area-inset-right);
+      opacity:0; transform:translateY(6px); animation:bodyIn .6s var(--e) forwards;
     }
     @keyframes bodyIn{to{opacity:1; transform:none}}
+    :where(a,button):focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 80%, #fff 20%); outline-offset:3px; border-radius:10px}
 
-    /* Focus styles */
-    :where(a,button):focus-visible{
-      outline:2px solid color-mix(in srgb, var(--accent) 80%, #fff 20%);
-      outline-offset:3px; border-radius:10px;
-    }
+    /* Progress bar */
+    .progress{position:fixed; inset:0 0 auto 0; height:3px; background:linear-gradient(90deg,var(--accent),#ffd8a8); transform-origin:left; transform:scaleX(0); z-index:60}
 
-    /* Scroll progress */
-    .progress{
-      position:fixed; inset:0 0 auto 0; height:3px;
-      background:linear-gradient(90deg, var(--accent), #ffd8a8);
-      transform-origin:left; transform:scaleX(0);
-      z-index:40;
-    }
+    /* NAV */
+    .nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(120%) blur(8px);
+      background:color-mix(in srgb, var(--bg) 86%, transparent); border-bottom:1px solid var(--line)}
+    .nav-inner{max-width:var(--max); margin:0 auto; padding:.75rem 1rem; display:flex; align-items:center; justify-content:space-between; gap:.5rem}
+    .brand{display:flex; align-items:center; gap:.5rem; font-family:'Lora',serif; letter-spacing:.2px; font-size:1.05rem}
+    .brand .dot{width:22px; height:22px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 2px #1b1b1b inset; flex:0 0 auto}
+    .nav-links{display:flex; gap:.25rem}
+    .nav a{color:var(--ink); text-decoration:none; font-size:.95rem; padding:.5rem .7rem; border-radius:8px; line-height:1.2;
+      transition:background var(--t-fast) var(--e), transform var(--t-fast) var(--e), color var(--t-fast) var(--e)}
+    .nav a:hover{background:#1f1f1f; transform:translateY(-1px)}
+    .nav a.active{color:var(--accent)}
 
-    /* Top nav */
-    .nav{
-      position:sticky; top:0; z-index:30;
-      backdrop-filter:saturate(120%) blur(8px);
-      background:color-mix(in srgb, var(--bg) 86%, transparent);
-      border-bottom:1px solid var(--line);
-    }
-    .nav-inner{
-      max-width:var(--max); margin:0 auto; padding:.75rem 1rem;
-      display:flex; align-items:center; justify-content:space-between;
-    }
-    .brand{
-      display:flex; align-items:center; gap:.5rem;
-      font-family:'Lora',serif; letter-spacing:.2px; font-size:1.05rem;
-    }
-    .brand .dot{
-      width:22px; height:22px; border-radius:50%;
-      background:var(--accent); box-shadow:0 0 0 2px #1b1b1b inset;
-    }
-    .nav a{
-      color:var(--ink); text-decoration:none; font-size:.95rem;
-      padding:.35rem .6rem; border-radius:8px;
-      transition:background var(--t-fast) var(--e), transform var(--t-fast) var(--e), color var(--t-fast) var(--e);
-    }
-    .nav a:hover{ background:#1f1f1f; transform:translateY(-1px) }
-    .nav a.active{ color:var(--accent) }
+    /* Hamburger */
+    .menu-toggle{display:none; border:1px solid var(--line); background:#181818; color:var(--ink);
+      padding:.6rem .8rem; border-radius:10px; line-height:1; cursor:pointer; min-width:44px; min-height:44px}
+    .menu-icon{display:inline-block; width:22px; height:2px; background:var(--ink); position:relative}
+    .menu-icon::before,.menu-icon::after{content:""; position:absolute; left:0; width:22px; height:2px; background:var(--ink); transition:transform var(--t-fast) var(--e)}
+    .menu-icon::before{top:-6px}.menu-icon::after{top:6px}
+    .menu-toggle[aria-expanded="true"] .menu-icon{background:transparent}
+    .menu-toggle[aria-expanded="true"] .menu-icon::before{transform:translateY(6px) rotate(45deg)}
+    .menu-toggle[aria-expanded="true"] .menu-icon::after{transform:translateY(-6px) rotate(-45deg)}
 
-    header{
-      min-height:64vh;
-      display:grid; place-items:center;
-      text-align:center; padding:var(--space-5) 1.25rem var(--space-4);
-      position:relative; overflow:hidden;
-    }
+    /* Mobile menu panel */
+    .panel{position:fixed; inset:var(--headerH) 0 auto 0; background:color-mix(in srgb, var(--bg) 96%, #000 4%);
+      border-bottom:1px solid var(--line); transform:translateY(-8px); opacity:0; pointer-events:none; transition:opacity var(--t-med) var(--e), transform var(--t-med) var(--e); z-index:49}
+    .panel.open{transform:none; opacity:1; pointer-events:auto}
+    .panel .nav-links{flex-direction:column; padding:8px}
+    .panel a{padding:12px 14px; font-size:1rem}
 
-    /* soft floating accent shapes */
-    .blob{
-      position:absolute; filter:blur(40px); opacity:.12; pointer-events:none;
-      animation: float 12s var(--e) infinite alternate;
-    }
-    .blob.b1{ width:320px; height:320px; background:#ffb86c; top:-60px; left:10%; }
-    .blob.b2{ width:260px; height:260px; background:#ffd8a8; bottom:-70px; right:8%; animation-delay:1.2s; }
-    @keyframes float{
-      from{ transform:translateY(0) translateX(0) scale(1)}
-      to{ transform:translateY(18px) translateX(8px) scale(1.03)}
-    }
+    header{min-height:64vh; display:grid; place-items:center; text-align:center; padding:var(--space-5) 1.25rem var(--space-4); position:relative; overflow:hidden}
+    .blob{position:absolute; filter:blur(40px); opacity:.12; pointer-events:none; animation:float 12s var(--e) infinite alternate}
+    .blob.b1{width:320px; height:320px; background:#ffb86c; top:-60px; left:10%}
+    .blob.b2{width:260px; height:260px; background:#ffd8a8; bottom:-70px; right:8%; animation-delay:1.2s}
+    @keyframes float{from{transform:translateY(0) translateX(0) scale(1)} to{transform:translateY(18px) translateX(8px) scale(1.03)}}
 
-    h1{
-      font-family:'Lora',serif;
-      font-size:clamp(2.6rem,6vw,3.8rem);
-      font-weight:500; letter-spacing:-.3px;
-      margin-bottom:.6rem;
-      background:linear-gradient(180deg, var(--ink), #dcdcdc);
-      -webkit-background-clip:text; background-clip:text; color:transparent;
-      animation: titleIn .7s var(--e) .05s both;
-    }
+    h1{font-family:'Lora',serif; font-size:clamp(2.4rem,6vw,3.8rem); font-weight:500; letter-spacing:-.3px; margin-bottom:.6rem;
+      background:linear-gradient(180deg,var(--ink),#dcdcdc); -webkit-background-clip:text; background-clip:text; color:transparent; animation:titleIn .7s var(--e) .05s both}
     @keyframes titleIn{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
-
-    .tagline{
-      font-size:1.15rem; color:var(--quiet);
-      max-width:640px; margin:0 auto var(--space-3);
-      animation: fadeUp .6s var(--e) .12s both;
-    }
+    .tagline{font-size:1.1rem; color:var(--quiet); max-width:640px; margin:0 auto var(--space-3); animation:fadeUp .6s var(--e) .12s both}
     @keyframes fadeUp{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+    .btn{padding:1rem 1.2rem; border:none; cursor:pointer; background:var(--accent); color:#121212; font-weight:600;
+      border-radius:10px; font-size:1rem; box-shadow:var(--shadow-0); transition:transform var(--t-fast) var(--e), box-shadow var(--t-fast) var(--e), background var(--t-fast) var(--e); min-height:44px}
+    .btn:hover{transform:translateY(-1px); box-shadow:var(--shadow-1)}
+    .btn:active{transform:translateY(0) scale(.99)}
+    .btn-secondary{background:transparent; color:var(--ink); border:1px solid var(--line)}
+    .btn-secondary:hover{background:#1f1f1f; border-color:var(--accent)}
+    .header-buttons{display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; animation:fadeUp .6s var(--e) .18s both}
+    .container{max-width:var(--max); margin:auto; padding:0 1.25rem var(--space-5)}
+    .section-divider{height:1px; background:linear-gradient(90deg,transparent,var(--line),transparent); margin:var(--space-4) 0 var(--space-3)}
 
-    .btn{
-      padding:.9rem 2rem; border:none; cursor:pointer;
-      background:var(--accent); color:#121212; font-weight:600;
-      border-radius:10px; font-size:1rem;
-      box-shadow:var(--shadow-0);
-      transition:transform var(--t-fast) var(--e), box-shadow var(--t-fast) var(--e), background var(--t-fast) var(--e);
-    }
-    .btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow-1) }
-    .btn:active{ transform:translateY(0) scale(.99) }
-    .btn-secondary{
-      background:transparent; color:var(--ink);
-      border:1px solid var(--line);
-    }
-    .btn-secondary:hover{ background:#1f1f1f; border-color:var(--accent) }
+    .card{background:linear-gradient(180deg,#1b1b1b,#171717); border-radius:var(--radius);
+      padding:calc(var(--space-4) - .5rem) var(--space-3); margin-bottom:var(--space-4);
+      border:1px solid var(--line); box-shadow:var(--shadow-0); transform:translateZ(0);
+      transition:box-shadow .6s var(--e), border-color .6s var(--e), transform .6s var(--e)}
+    .card:hover{box-shadow:var(--shadow-1); border-color:#343434; transform:translateY(-1px)}
 
-    .header-buttons{ display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; animation: fadeUp .6s var(--e) .18s both; }
-
-    .container{ max-width:var(--max); margin:auto; padding:0 1.25rem var(--space-5) }
-
-    .section-divider{
-      height:1px; background:linear-gradient(90deg,transparent, var(--line), transparent);
-      margin:var(--space-4) 0 var(--space-3);
-    }
-
-    .card{
-      background:linear-gradient(180deg, #1b1b1b, #171717);
-      border-radius:var(--radius);
-      padding:calc(var(--space-4) - .5rem) var(--space-3);
-      margin-bottom:var(--space-4);
-      border:1px solid var(--line);
-      box-shadow:var(--shadow-0);
-      transform:translateZ(0);
-      transition:box-shadow .6s var(--e), border-color .6s var(--e), transform .6s var(--e);
-    }
-    .card:hover{ box-shadow:var(--shadow-1); border-color:#343434; transform:translateY(-1px) }
-
-    h2{
-      position:relative;
-      font-family:'Lora',serif;
-      font-size:1.55rem; font-weight:500; color:var(--accent);
-      margin-bottom:.8rem;
-    }
-    /* accent sweep on section titles when revealed */
-    h2::after{
-      content:"";
-      position:absolute; left:0; bottom:-6px; height:2px; width:0;
-      background:linear-gradient(90deg, var(--accent), #ffd8a8);
-      transition:width .7s var(--e);
-    }
-    .show h2::after{ width:120px }
+    h2{position:relative; font-family:'Lora',serif; font-size:1.55rem; font-weight:500; color:var(--accent); margin-bottom:.8rem}
+    h2::after{content:""; position:absolute; left:0; bottom:-6px; height:2px; width:0; background:linear-gradient(90deg,var(--accent),#ffd8a8); transition:width .7s var(--e)}
+    .show h2::after{width:120px}
 
     ul{list-style:none}
     p{margin-bottom:.8rem; color:var(--quiet)}
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
 
-    .highlights{
-      display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0 0;
-    }
-    .pill{
-      background:#161616; border:1px solid var(--line); color:var(--quiet);
-      padding:.35rem .6rem; border-radius:999px; font-size:.85rem;
-    }
+    .highlights{display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0 0}
+    .pill{background:#161616; border:1px solid var(--line); color:var(--quiet); padding:.45rem .7rem; border-radius:999px; font-size:.95rem}
 
-    .skills-grid{
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:1rem; margin:1.1rem 0;
-    }
-    .skill-category{
-      background:#161616; border-radius:10px; padding:1.1rem;
-      border:1px solid var(--line);
-      transition:transform var(--t-fast) var(--e), border-color var(--t-fast) var(--e);
-    }
-    .skill-category:hover{ transform:translateY(-1px); border-color:#333 }
-    .skill-category h3{ font-size:1rem; font-weight:600; margin-bottom:.6rem }
-    .skill-items{ display:flex; flex-wrap:wrap; gap:.4rem }
-    .skill-tag{
-      background:var(--accent); color:#121212; font-size:.8rem;
-      padding:.32rem .65rem; border-radius:14px; font-weight:600;
-      transition:transform var(--t-fast) var(--e);
-    }
-    .skill-tag:hover{ transform:translateY(-1px) }
+    .skills-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:1rem; margin:1.1rem 0}
+    .skill-category{background:#161616; border-radius:10px; padding:1.1rem; border:1px solid var(--line);
+      transition:transform var(--t-fast) var(--e), border-color var(--t-fast) var(--e)}
+    .skill-category:hover{transform:translateY(-1px); border-color:#333}
+    .skill-category h3{font-size:1rem; font-weight:600; margin-bottom:.6rem}
+    .skill-items{display:flex; flex-wrap:wrap; gap:.4rem}
+    .skill-tag{background:var(--accent); color:#121212; font-size:.85rem; padding:.4rem .7rem; border-radius:14px; font-weight:600; transition:transform var(--t-fast) var(--e)}
+    .skill-tag:hover{transform:translateY(-1px)}
 
-    .skills-philosophy{
-      margin-top:1rem; padding:1rem 1.1rem;
-      background:#161616; border-left:3px solid var(--accent); font-style:italic;
-      border-radius:8px;
-    }
+    .skills-philosophy{margin-top:1rem; padding:1rem 1.1rem; background:#161616; border-left:3px solid var(--accent); font-style:italic; border-radius:8px}
 
-    .contact-grid{
-      display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:1rem; margin:1.1rem 0;
-    }
-    .contact-method{
-      display:flex; gap:.9rem; padding:1rem; background:#161616;
-      border-radius:10px; border:1px solid var(--line);
-      transition:border-color var(--t-fast) var(--e), background var(--t-fast) var(--e), transform var(--t-fast) var(--e);
-    }
-    .contact-method:hover{ border-color:#3a3a3a; background:#181818; transform:translateY(-1px) }
+    .contact-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1rem; margin:1.1rem 0}
+    .contact-method{display:flex; gap:.9rem; padding:1rem; background:#161616; border-radius:10px; border:1px solid var(--line);
+      transition:border-color var(--t-fast) var(--e), background var(--t-fast) var(--e), transform var(--t-fast) var(--e)}
+    .contact-method:hover{border-color:#3a3a3a; background:#181818; transform:translateY(-1px)}
     .contact-icon{font-size:1.4rem}
     .contact-info h3{font-size:1rem; font-weight:600; margin-bottom:.2rem}
     .contact-info p{color:var(--quiet); font-size:.92rem; margin-top:.2rem}
-    .availability{ margin-top:.2rem; font-size:.9rem; color:var(--quiet) }
+    .availability{margin-top:.2rem; font-size:.9rem; color:var(--quiet)}
 
-    .cta-section{ text-align:center; margin-top:2rem; padding-top:1.2rem; border-top:1px solid var(--line); font-style:italic }
+    footer{text-align:center; padding:2rem 1rem; font-size:.92rem; color:var(--quiet); border-top:1px solid var(--line)}
 
-    footer{
-      text-align:center; padding:2rem 1rem; font-size:.92rem; color:var(--quiet);
-      border-top:1px solid var(--line);
+    /* Anchor sections respect sticky header */
+    section[id]{scroll-margin-top:var(--headerH)}
+
+    /* Reveal on scroll */
+    .reveal{opacity:0; transform:translateY(10px); transition:opacity .6s var(--e), transform .6s var(--e)}
+    .reveal.show{opacity:1; transform:none}
+
+    /* Responsive tweaks */
+    @media (max-width:900px){
+      .nav-links{display:none}
+      .menu-toggle{display:inline-flex; align-items:center; justify-content:center}
+      .blob{opacity:.08}
+      .btn{width:100%}
+      .header-buttons{gap:.6rem}
+      .tagline{font-size:1.04rem}
     }
 
-    /* Anchor sections account for sticky header */
-    section[id]{ scroll-margin-top: var(--headerH) }
-
-    /* reveal on scroll */
-    .reveal{ opacity:0; transform:translateY(10px); transition:opacity .6s var(--e), transform .6s var(--e) }
-    .reveal.show{ opacity:1; transform:none }
-
-    /* Respect reduced motion */
+    /* Reduced motion */
     @media (prefers-reduced-motion: reduce){
       html{scroll-behavior:auto}
       .btn,.card,.contact-method,.skill-category,.skill-tag{transition:none}
       .reveal{opacity:1; transform:none}
-      .progress{display:none}
-      .blob{display:none}
+      .progress,.blob{display:none}
       body{animation:none; opacity:1; transform:none}
-    }
-
-    @media (max-width:768px){
-      .container{padding-bottom:var(--space-4)}
-      h1{font-size:2.3rem}
-      .tagline{font-size:1.05rem}
-      .blob{opacity:.08}
     }
 
     /* Print */
     @media print{
-      .nav, .btn, .btn-secondary, .header-buttons, .cta-section a, .blob, .progress, #toTop{ display:none !important }
-      body{ background:#fff; color:#111 }
-      .card{ box-shadow:none; border-color:#ddd; background:#fff }
-      a{ color:#000; text-decoration:underline }
-      a::after{ content:" (" attr(href) ")"; font-size:.85em; color:#555 }
+      .nav, .btn, .btn-secondary, .header-buttons, .cta-section a, .blob, .progress, #toTop, .menu-toggle, .panel{display:none !important}
+      body{background:#fff; color:#111}
+      .card{box-shadow:none; border-color:#ddd; background:#fff}
+      a{color:#000; text-decoration:underline}
+      a::after{content:" (" attr(href) ")"; font-size:.85em; color:#555}
     }
   </style>
 </head>
 
 <body>
-  <!-- scroll progress bar -->
   <div class="progress" aria-hidden="true"></div>
 
-  <!-- Minimal sticky nav with monogram -->
+  <!-- NAV -->
   <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <div class="brand" aria-label="Site brand">
         <span class="dot" aria-hidden="true"></span>
         <span>Muhammad Alfaz</span>
       </div>
-      <div style="display:flex;gap:.25rem">
+
+      <!-- Desktop links -->
+      <div class="nav-links" role="menubar" aria-label="Primary links">
+        <a href="#about" data-spy role="menuitem">About</a>
+        <a href="#education" data-spy role="menuitem">Education</a>
+        <a href="#mindset" data-spy role="menuitem">Approach</a>
+        <a href="#skills" data-spy role="menuitem">Skills</a>
+        <a href="#contact" data-spy role="menuitem">Contact</a>
+      </div>
+
+      <!-- Mobile button -->
+      <button class="menu-toggle" aria-label="Menu" aria-controls="mobile-panel" aria-expanded="false">
+        <span class="menu-icon" aria-hidden="true"></span>
+      </button>
+    </div>
+
+    <!-- Mobile panel -->
+    <div id="mobile-panel" class="panel" hidden>
+      <div class="nav-links">
         <a href="#about" data-spy>About</a>
         <a href="#education" data-spy>Education</a>
         <a href="#mindset" data-spy>Approach</a>
@@ -326,7 +225,6 @@
   </nav>
 
   <header>
-    <!-- soft floating blobs -->
     <div class="blob b1" aria-hidden="true"></div>
     <div class="blob b2" aria-hidden="true"></div>
 
@@ -341,20 +239,12 @@
   </header>
 
   <div class="container">
-
     <div class="section-divider" aria-hidden="true"></div>
 
     <section id="about" class="about card reveal">
       <h2>About Me</h2>
-      <p>
-        Hi! I'm Alfaz, and I'm currently studying <strong>B.Com International Accounting & Finance with ACCA</strong> at Yenepoya Institute. 
-        But here's the thing. I'm not just about numbers and spreadsheets. What really gets me excited is people.
-      </p>
-      <p>
-        I've always been fascinated by how teams work (or sometimes don't work). There's something special about watching a group of people 
-        come together and create something amazing. That's why I'm drawn to HR and leadership. I want to be the person who helps 
-        others discover their potential and work better together.
-      </p>
+      <p>Hi! I'm Alfaz, and I'm currently studying <strong>B.Com International Accounting & Finance with ACCA</strong> at Yenepoya Institute. But here's the thing. I'm not just about numbers and spreadsheets. What really gets me excited is people.</p>
+      <p>I've always been fascinated by how teams work (or sometimes don't work). There's something special about watching a group of people come together and create something amazing. That's why I'm drawn to HR and leadership. I want to be the person who helps others discover their potential and work better together.</p>
     </section>
 
     <section id="education" class="education card reveal">
@@ -365,23 +255,16 @@
       </ul>
     </section>
 
-    <!-- Replacement for Experience -->
     <section id="mindset" class="mindset card reveal">
       <h2>What I've Learned Working With People</h2>
-      <p>
-        Talking to people every day taught me something simple and powerful: listening matters more than talking. 
-        Most of the time people don’t say exactly what they mean, but they always show how they feel.
-      </p>
-      <p>
-        I’ve also learned that every complaint is someone trying to help you improve; the best customer service isn’t about fixing problems, it’s about making people feel heard and valued.
-      </p>
+      <p>Talking to people every day taught me something simple and powerful: listening matters more than talking. Most of the time people don’t say exactly what they mean, but they always show how they feel.</p>
+      <p>I’ve also learned that every complaint is someone trying to help you improve; the best customer service isn’t about fixing problems, it’s about making people feel heard and valued.</p>
     </section>
 
     <section id="skills" class="skills card reveal">
       <h2>What I Bring to the Table</h2>
       <p>Here's what I'm good at and how I like to work:</p>
 
-      <!-- Highlights for quick scan (derived from your content) -->
       <div class="highlights" aria-label="Highlights">
         <span class="pill">People-first mindset</span>
         <span class="pill">Active listener</span>
@@ -397,7 +280,6 @@
             <span class="skill-tag">Emotional Intelligence</span>
           </div>
         </div>
-        
         <div class="skill-category">
           <h3>🧠 Thinking & Analysis</h3>
           <div class="skill-items">
@@ -406,7 +288,6 @@
             <span class="skill-tag">Strategic Thinking</span>
           </div>
         </div>
-        
         <div class="skill-category">
           <h3>👥 Leadership & Teamwork</h3>
           <div class="skill-items">
@@ -425,7 +306,6 @@
     <section id="contact" class="contact card reveal">
       <h2>Get in touch</h2>
       <p>I'd love to chat. Whether you want to talk about HR, leadership, or just share a cool story, I'm all ears.</p>
-      
       <div class="contact-grid">
         <div class="contact-method">
           <div class="contact-icon">📞</div>
@@ -436,7 +316,6 @@
             <div class="availability">Usually available evenings IST.</div>
           </div>
         </div>
-        
         <div class="contact-method">
           <div class="contact-icon">✉️</div>
           <div class="contact-info">
@@ -445,7 +324,6 @@
             <p>Shoot me an email. I usually reply pretty quickly.</p>
           </div>
         </div>
-        
         <div class="contact-method">
           <div class="contact-icon">🔗</div>
           <div class="contact-info">
@@ -455,12 +333,10 @@
           </div>
         </div>
       </div>
-      
       <div class="cta-section">
         <p><em>Every conversation is a chance to learn something new. Don't be shy, reach out.</em></p>
       </div>
     </section>
-
   </div>
 
   <footer>
@@ -468,69 +344,67 @@
     <div style="margin-top:.4rem; font-size:.85rem">Last updated: <span id="updated"></span></div>
   </footer>
 
-  <button id="toTop" aria-label="Back to top" style="
-    position:fixed; right:16px; bottom:16px; border:1px solid var(--line);
-    background:#181818; color: var(--ink); padding:.6rem .8rem; border-radius:10px;
-    display:none; box-shadow:var(--shadow-0);">Top</button>
+  <button id="toTop" aria-label="Back to top" style="position:fixed; right:16px; bottom:16px; border:1px solid var(--line); background:#181818; color:var(--ink); padding:.6rem .8rem; border-radius:10px; display:none; box-shadow:var(--shadow-0);">Top</button>
 
   <script>
-    // ---- header height var ----
+    // Cache elements
     const nav = document.querySelector('.nav');
     const root = document.documentElement;
-    function setHeaderHeightVar(){
-      const h = nav ? nav.offsetHeight : 64;
-      root.style.setProperty('--headerH', h + 'px');
-    }
+    const toTop = document.getElementById('toTop');
+    const progress = document.querySelector('.progress');
+
+    // Header height var for anchor offset
+    function setHeaderHeightVar(){ root.style.setProperty('--headerH', (nav ? nav.offsetHeight : 64) + 'px'); }
     window.addEventListener('load', setHeaderHeightVar);
     window.addEventListener('resize', setHeaderHeightVar);
 
-    // ---- section reveal ----
-    const revealEls = document.querySelectorAll('.reveal');
+    // Reveal on scroll
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const obs = !prefersReduced && 'IntersectionObserver' in window
-      ? new IntersectionObserver(entries=>{
-          entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); obs.unobserve(e.target);} });
-        },{threshold:.12})
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObs = !prefersReduced && 'IntersectionObserver' in window
+      ? new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting){ e.target.classList.add('show'); revealObs.unobserve(e.target); } }); }, { threshold:.12 })
       : null;
-    revealEls.forEach(el => obs ? obs.observe(el) : el.classList.add('show'));
+    revealEls.forEach(el => revealObs ? revealObs.observe(el) : el.classList.add('show'));
 
-    // ---- back to top + progress ----
-    const toTop = document.getElementById('toTop');
-    const progress = document.querySelector('.progress');
+    // Back to top + progress
     window.addEventListener('scroll', () => {
       toTop.style.display = window.scrollY > 600 ? 'block' : 'none';
       const h = document.documentElement;
       const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
       if (progress) progress.style.transform = `scaleX(${Math.max(0, Math.min(1, scrolled))})`;
     });
-    if (toTop) {
-      toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
-    }
+    toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
-    // ---- header-aware smooth scroll for nav clicks ----
+    // Mobile menu
+    const toggle = document.querySelector('.menu-toggle');
+    const panel = document.getElementById('mobile-panel');
+    function closePanel(){ panel.classList.remove('open'); panel.setAttribute('hidden',''); toggle.setAttribute('aria-expanded','false'); }
+    function openPanel(){ panel.classList.add('open'); panel.removeAttribute('hidden'); toggle.setAttribute('aria-expanded','true'); }
+    toggle.addEventListener('click', () => { const open = toggle.getAttribute('aria-expanded') === 'true'; open ? closePanel() : openPanel(); });
+    // Close panel on link click or Escape
+    panel.addEventListener('click', (e) => { if (e.target.matches('a[href^="#"]')) closePanel(); });
+    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
+
+    // Smooth anchor scroll with header offset
     const spyLinks = [...document.querySelectorAll('a[data-spy]')];
-    spyLinks.forEach(a => {
-      a.addEventListener('click', (e) => {
-        const href = a.getAttribute('href');
-        if (!href || !href.startsWith('#')) return;
-        const target = document.querySelector(href);
-        if (!target) return;
-        e.preventDefault();
-        const headerH = nav ? nav.offsetHeight : 64;
-        const y = target.getBoundingClientRect().top + window.scrollY - headerH - 8;
-        window.scrollTo({ top: y, behavior: 'smooth' });
-        spyLinks.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
-        a.classList.add('active');
-        a.setAttribute('aria-current','true');
-      });
-    });
+    function scrollToTarget(sel){
+      const t = document.querySelector(sel); if (!t) return;
+      const headerH = nav ? nav.offsetHeight : 64;
+      const y = t.getBoundingClientRect().top + window.scrollY - headerH - 8;
+      window.scrollTo({ top:y, behavior:'smooth' });
+    }
+    spyLinks.forEach(a => a.addEventListener('click', (e) => {
+      const href = a.getAttribute('href'); if (!href || !href.startsWith('#')) return;
+      e.preventDefault(); scrollToTarget(href);
+      spyLinks.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
+      a.classList.add('active'); a.setAttribute('aria-current','true');
+    }));
 
-    // ---- scroll-spy with dynamic header offset ----
+    // Scroll-spy with header-aware margins
     let spyObs = null;
     function setupSpy(){
       if (!('IntersectionObserver' in window)) return;
       if (spyObs) spyObs.disconnect();
-
       const headerH = nav ? nav.offsetHeight : 64;
       const topMargin = -(headerH + 10) + 'px';
       spyObs = new IntersectionObserver((entries) => {
@@ -538,13 +412,12 @@
           const id = '#' + entry.target.id;
           const link = spyLinks.find(a => a.getAttribute('href') === id);
           if (!link) return;
-          if (entry.isIntersecting) {
+          if (entry.isIntersecting){
             spyLinks.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
-            link.classList.add('active');
-            link.setAttribute('aria-current', 'true');
+            link.classList.add('active'); link.setAttribute('aria-current','true');
           }
         });
-      }, { rootMargin: `${topMargin} 0px -55% 0px`, threshold: 0.01 });
+      }, { rootMargin:`${topMargin} 0px -55% 0px`, threshold:0.01 });
 
       const sections = spyLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
       sections.forEach(sec => spyObs.observe(sec));
@@ -552,8 +425,8 @@
     window.addEventListener('load', setupSpy);
     window.addEventListener('resize', () => { setHeaderHeightVar(); setupSpy(); });
 
-    // last updated
-    document.getElementById('updated').textContent = new Date().toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+    // Last updated
+    document.getElementById('updated').textContent = new Date().toLocaleDateString(undefined, {year:'numeric', month:'short', day:'numeric'});
   </script>
 </body>
 </html>
