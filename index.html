@@ -62,31 +62,23 @@
     /* NAV */
     .nav{position:sticky; top:0; z-index:50; backdrop-filter:saturate(120%) blur(8px);
       background:color-mix(in srgb, var(--bg) 86%, transparent); border-bottom:1px solid var(--line)}
-    .nav-inner{max-width:var(--max); margin:0 auto; padding:.75rem 1rem; display:flex; align-items:center; justify-content:space-between; gap:.5rem}
+    .nav-inner{
+      max-width:var(--max); margin:0 auto; padding:.75rem 1rem;
+      display:grid; grid-template-columns:1fr auto; align-items:center; gap:.5rem
+    }
     .brand{display:flex; align-items:center; gap:.5rem; font-family:'Lora',serif; letter-spacing:.2px; font-size:1.05rem}
     .brand .dot{width:22px; height:22px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 2px #1b1b1b inset; flex:0 0 auto}
-    .nav-links{display:flex; gap:.25rem}
-    .nav a{color:var(--ink); text-decoration:none; font-size:.95rem; padding:.5rem .7rem; border-radius:8px; line-height:1.2;
-      transition:background var(--t-fast) var(--e), transform var(--t-fast) var(--e), color var(--t-fast) var(--e)}
+
+    .nav-links{
+      display:flex; flex-wrap:wrap; justify-content:flex-end; gap:.25rem .4rem;
+    }
+    .nav a{
+      color:var(--ink); text-decoration:none; font-size:.95rem;
+      padding:.5rem .7rem; border-radius:8px; line-height:1.2;
+      transition:background var(--t-fast) var(--e), transform var(--t-fast) var(--e), color var(--t-fast) var(--e)
+    }
     .nav a:hover{background:#1f1f1f; transform:translateY(-1px)}
     .nav a.active{color:var(--accent)}
-
-    /* Hamburger */
-    .menu-toggle{display:none; border:1px solid var(--line); background:#181818; color:var(--ink);
-      padding:.6rem .8rem; border-radius:10px; line-height:1; cursor:pointer; min-width:44px; min-height:44px}
-    .menu-icon{display:inline-block; width:22px; height:2px; background:var(--ink); position:relative}
-    .menu-icon::before,.menu-icon::after{content:""; position:absolute; left:0; width:22px; height:2px; background:var(--ink); transition:transform var(--t-fast) var(--e)}
-    .menu-icon::before{top:-6px}.menu-icon::after{top:6px}
-    .menu-toggle[aria-expanded="true"] .menu-icon{background:transparent}
-    .menu-toggle[aria-expanded="true"] .menu-icon::before{transform:translateY(6px) rotate(45deg)}
-    .menu-toggle[aria-expanded="true"] .menu-icon::after{transform:translateY(-6px) rotate(-45deg)}
-
-    /* Mobile panel */
-    .panel{position:fixed; inset:var(--headerH) 0 auto 0; background:color-mix(in srgb, var(--bg) 96%, #000 4%);
-      border-bottom:1px solid var(--line); transform:translateY(-8px); opacity:0; pointer-events:none; transition:opacity var(--t-med) var(--e), transform var(--t-med) var(--e); z-index:49}
-    .panel.open{transform:none; opacity:1; pointer-events:auto}
-    .panel .nav-links{flex-direction:column; padding:8px}
-    .panel a{padding:12px 14px; font-size:1rem}
 
     header{min-height:64vh; display:grid; place-items:center; text-align:center; padding:var(--space-5) 1.25rem var(--space-4); position:relative; overflow:hidden}
     .blob{position:absolute; filter:blur(40px); opacity:.12; pointer-events:none; animation:float 12s var(--e) infinite alternate}
@@ -158,8 +150,9 @@
 
     /* Responsive tweaks */
     @media (max-width:900px){
-      .nav-links{display:none}
-      .menu-toggle{display:inline-flex; align-items:center; justify-content:center}
+      .nav-inner{grid-template-columns:1fr}
+      .brand{justify-content:center}
+      .nav-links{justify-content:center}
       .blob{opacity:.08}
       .btn{width:100%}
       .header-buttons{gap:.6rem}
@@ -177,7 +170,7 @@
 
     /* Print */
     @media print{
-      .nav, .btn, .btn-secondary, .header-buttons, .cta-section a, .blob, .progress, #toTop, .menu-toggle, .panel{display:none !important}
+      .nav, .btn, .btn-secondary, .header-buttons, .cta-section a, .blob, .progress, #toTop{display:none !important}
       body{background:#fff; color:#111}
       .card{box-shadow:none; border-color:#ddd; background:#fff}
       a{color:#000; text-decoration:underline}
@@ -196,29 +189,12 @@
         <span>Muhammad Alfaz</span>
       </div>
 
-      <!-- Desktop links -->
       <div class="nav-links" role="menubar" aria-label="Primary links">
         <a href="#about" data-spy role="menuitem">About</a>
         <a href="#education" data-spy role="menuitem">Education</a>
         <a href="#mindset" data-spy role="menuitem">Approach</a>
         <a href="#skills" data-spy role="menuitem">Skills</a>
         <a href="#contact" data-spy role="menuitem">Contact</a>
-      </div>
-
-      <!-- Mobile button -->
-      <button class="menu-toggle" aria-label="Menu" aria-controls="mobile-panel" aria-expanded="false">
-        <span class="menu-icon" aria-hidden="true"></span>
-      </button>
-    </div>
-
-    <!-- Mobile panel -->
-    <div id="mobile-panel" class="panel">
-      <div class="nav-links">
-        <a href="#about" data-spy>About</a>
-        <a href="#education" data-spy>Education</a>
-        <a href="#mindset" data-spy>Approach</a>
-        <a href="#skills" data-spy>Skills</a>
-        <a href="#contact" data-spy>Contact</a>
       </div>
     </div>
   </nav>
@@ -373,36 +349,6 @@
       if (progress) progress.style.transform = `scaleX(${Math.max(0, Math.min(1, scrolled))})`;
     });
     toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
-
-    // Mobile menu
-    const toggle = document.querySelector(".menu-toggle");
-    const panel = document.getElementById("mobile-panel");
-
-    function closePanel() {
-      panel.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-    }
-
-    function openPanel() {
-      panel.classList.add("open");
-      toggle.setAttribute("aria-expanded", "true");
-    }
-
-    // Toggle panel visibility
-    toggle.addEventListener("click", () => {
-      const isOpen = toggle.getAttribute("aria-expanded") === "true";
-      isOpen ? closePanel() : openPanel();
-    });
-
-    // Close panel when link clicked
-    panel.addEventListener("click", (e) => {
-      if (e.target.matches('a[href^="#"]')) closePanel();
-    });
-
-    // Close panel with Escape
-    window.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") closePanel();
-    });
 
     // Smooth anchor scroll with header offset
     const spyLinks = [...document.querySelectorAll('a[data-spy]')];
