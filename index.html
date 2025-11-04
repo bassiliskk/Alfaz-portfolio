@@ -81,7 +81,7 @@
     .menu-toggle[aria-expanded="true"] .menu-icon::before{transform:translateY(6px) rotate(45deg)}
     .menu-toggle[aria-expanded="true"] .menu-icon::after{transform:translateY(-6px) rotate(-45deg)}
 
-    /* Mobile menu panel */
+    /* Mobile panel */
     .panel{position:fixed; inset:var(--headerH) 0 auto 0; background:color-mix(in srgb, var(--bg) 96%, #000 4%);
       border-bottom:1px solid var(--line); transform:translateY(-8px); opacity:0; pointer-events:none; transition:opacity var(--t-med) var(--e), transform var(--t-med) var(--e); z-index:49}
     .panel.open{transform:none; opacity:1; pointer-events:auto}
@@ -189,7 +189,6 @@
 <body>
   <div class="progress" aria-hidden="true"></div>
 
-  <!-- NAV -->
   <nav class="nav" aria-label="Primary">
     <div class="nav-inner">
       <div class="brand" aria-label="Site brand">
@@ -213,7 +212,7 @@
     </div>
 
     <!-- Mobile panel -->
-    <div id="mobile-panel" class="panel" hidden>
+    <div id="mobile-panel" class="panel">
       <div class="nav-links">
         <a href="#about" data-spy>About</a>
         <a href="#education" data-spy>Education</a>
@@ -376,14 +375,34 @@
     toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 
     // Mobile menu
-    const toggle = document.querySelector('.menu-toggle');
-    const panel = document.getElementById('mobile-panel');
-    function closePanel(){ panel.classList.remove('open'); panel.setAttribute('hidden',''); toggle.setAttribute('aria-expanded','false'); }
-    function openPanel(){ panel.classList.add('open'); panel.removeAttribute('hidden'); toggle.setAttribute('aria-expanded','true'); }
-    toggle.addEventListener('click', () => { const open = toggle.getAttribute('aria-expanded') === 'true'; open ? closePanel() : openPanel(); });
-    // Close panel on link click or Escape
-    panel.addEventListener('click', (e) => { if (e.target.matches('a[href^="#"]')) closePanel(); });
-    window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePanel(); });
+    const toggle = document.querySelector(".menu-toggle");
+    const panel = document.getElementById("mobile-panel");
+
+    function closePanel() {
+      panel.classList.remove("open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+
+    function openPanel() {
+      panel.classList.add("open");
+      toggle.setAttribute("aria-expanded", "true");
+    }
+
+    // Toggle panel visibility
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      isOpen ? closePanel() : openPanel();
+    });
+
+    // Close panel when link clicked
+    panel.addEventListener("click", (e) => {
+      if (e.target.matches('a[href^="#"]')) closePanel();
+    });
+
+    // Close panel with Escape
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closePanel();
+    });
 
     // Smooth anchor scroll with header offset
     const spyLinks = [...document.querySelectorAll('a[data-spy]')];
