@@ -1,286 +1,559 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Muhammad Alfaz – HR & Leadership Aspirant</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#121212" />
+  <meta name="description" content="Curious student focused on people, teams, and leadership. Helping others shine." />
+
+  <!-- Open Graph / Twitter cards -->
+  <meta property="og:title" content="Muhammad Alfaz — HR & Leadership Aspirant" />
+  <meta property="og:description" content="Curious student focused on people, teams, and leadership. Helping others shine." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://example.com/alfaz-card.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Structured data -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"Person",
+    "name":"Muhammad Alfaz",
+    "jobTitle":"HR & Leadership Aspirant",
+    "email":"mailto:muhammadalfaz787@gmail.com",
+    "telephone":"+918722609985",
+    "sameAs":["https://www.linkedin.com/in/muhammad-alfaz"]
+  }
+  </script>
+
+  <!-- Fonts: preconnect + swap -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:wght@500&display=swap" rel="stylesheet" />
+
+  <link rel="icon" href="/favicon.ico" />
   <style>
     :root{
+      /* Color system */
       --bg:#121212;
-      --paper:#1e1e1e;
+      --paper:#1b1b1b;
       --ink:#f2f2f2;
-      --quiet:#a0a0a0;
-      --line:#333;
-      --accent:#ffb86c; /* soft apricot */
+      --quiet:#b3b3b3; /* slightly higher contrast */
+      --line:#2a2a2a;
+      --accent:#ffb86c;
+
+      /* Layout & type */
+      --radius:12px;
+      --space-1:.5rem;
+      --space-2:1rem;
+      --space-3:1.5rem;
+      --space-4:2rem;
+      --space-5:3rem;
+      --max:780px;
+
+      /* Sticky header height (updated by JS) */
+      --headerH: 64px;
+
+      /* Motion */
+      --e: cubic-bezier(.22,1,.36,1);
+      --t-fast:160ms;
+      --t-med:260ms;
+      --shadow-1: 0 1px 2px rgba(0,0,0,.25), 0 8px 24px rgba(0,0,0,.25);
+      --shadow-0: 0 1px 2px rgba(0,0,0,.15);
     }
+
     *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
     body{
-      background:var(--bg);
+      background:
+        radial-gradient(1200px 600px at 50% -10%, #1a1a1a 0%, transparent 60%),
+        var(--bg);
       color:var(--ink);
-      font-family:'Inter',sans-serif;
+      font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
       line-height:1.7;
       font-size:17px;
       -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+      opacity:0; transform:translateY(6px);
+      animation: bodyIn .6s var(--e) forwards;
     }
+    @keyframes bodyIn{to{opacity:1; transform:none}}
+
+    /* Focus styles */
+    :where(a,button):focus-visible{
+      outline:2px solid color-mix(in srgb, var(--accent) 80%, #fff 20%);
+      outline-offset:3px; border-radius:10px;
+    }
+
+    /* Scroll progress */
+    .progress{
+      position:fixed; inset:0 0 auto 0; height:3px;
+      background:linear-gradient(90deg, var(--accent), #ffd8a8);
+      transform-origin:left; transform:scaleX(0);
+      z-index:40;
+    }
+
+    /* Top nav */
+    .nav{
+      position:sticky; top:0; z-index:30;
+      backdrop-filter:saturate(120%) blur(8px);
+      background:color-mix(in srgb, var(--bg) 86%, transparent);
+      border-bottom:1px solid var(--line);
+    }
+    .nav-inner{
+      max-width:var(--max); margin:0 auto; padding:.75rem 1rem;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .brand{
+      display:flex; align-items:center; gap:.5rem;
+      font-family:'Lora',serif; letter-spacing:.2px; font-size:1.05rem;
+    }
+    .brand .dot{
+      width:22px; height:22px; border-radius:50%;
+      background:var(--accent); box-shadow:0 0 0 2px #1b1b1b inset;
+    }
+    .nav a{
+      color:var(--ink); text-decoration:none; font-size:.95rem;
+      padding:.35rem .6rem; border-radius:8px;
+      transition:background var(--t-fast) var(--e), transform var(--t-fast) var(--e), color var(--t-fast) var(--e);
+    }
+    .nav a:hover{ background:#1f1f1f; transform:translateY(-1px) }
+    .nav a.active{ color:var(--accent) }
+
     header{
-      min-height:100vh;
-      display:flex;
-      flex-direction:column;
-      justify-content:center;
-      align-items:center;
-      text-align:center;
-      padding:4rem 1.5rem;
+      min-height:64vh;
+      display:grid; place-items:center;
+      text-align:center; padding:var(--space-5) 1.25rem var(--space-4);
+      position:relative; overflow:hidden;
     }
+
+    /* soft floating accent shapes */
+    .blob{
+      position:absolute; filter:blur(40px); opacity:.12; pointer-events:none;
+      animation: float 12s var(--e) infinite alternate;
+    }
+    .blob.b1{ width:320px; height:320px; background:#ffb86c; top:-60px; left:10%; }
+    .blob.b2{ width:260px; height:260px; background:#ffd8a8; bottom:-70px; right:8%; animation-delay:1.2s; }
+    @keyframes float{
+      from{ transform:translateY(0) translateX(0) scale(1)}
+      to{ transform:translateY(18px) translateX(8px) scale(1.03)}
+    }
+
     h1{
       font-family:'Lora',serif;
-      font-size:clamp(2.8rem,6vw,4.2rem);
-      font-weight:500;
-      letter-spacing:-.5px;
-      margin-bottom:.75rem;
+      font-size:clamp(2.6rem,6vw,3.8rem);
+      font-weight:500; letter-spacing:-.3px;
+      margin-bottom:.6rem;
+      background:linear-gradient(180deg, var(--ink), #dcdcdc);
+      -webkit-background-clip:text; background-clip:text; color:transparent;
+      animation: titleIn .7s var(--e) .05s both;
     }
+    @keyframes titleIn{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+
     .tagline{
-      font-size:1.3rem;
-      color:var(--quiet);
-      max-width:600px;
-      margin-bottom:2.5rem;
+      font-size:1.15rem; color:var(--quiet);
+      max-width:640px; margin:0 auto var(--space-3);
+      animation: fadeUp .6s var(--e) .12s both;
     }
+    @keyframes fadeUp{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+
     .btn{
-      padding:.9rem 2.2rem;
-      border:none;
-      background:var(--accent);
-      color:#121212;
-      font-weight:600;
-      border-radius:6px;
-      cursor:pointer;
-      font-size:1rem;
-      transition:background .2s;
+      padding:.9rem 2rem; border:none; cursor:pointer;
+      background:var(--accent); color:#121212; font-weight:600;
+      border-radius:10px; font-size:1rem;
+      box-shadow:var(--shadow-0);
+      transition:transform var(--t-fast) var(--e), box-shadow var(--t-fast) var(--e), background var(--t-fast) var(--e);
     }
-    .btn:hover{background:#ffa74d}
+    .btn:hover{ transform:translateY(-1px); box-shadow:var(--shadow-1) }
+    .btn:active{ transform:translateY(0) scale(.99) }
     .btn-secondary{
-      background:transparent;
-      color:var(--ink);
-      border:2px solid var(--line);
-      margin-left:1rem;
-    }
-    .btn-secondary:hover{background:var(--paper);border-color:var(--accent)}
-    .header-buttons{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
-    .container{
-      max-width:780px;
-      margin:auto;
-      padding:3rem 1.5rem 5rem;
-    }
-    .card{
-      background:var(--paper);
-      border-radius:10px;
-      padding:2.2rem;
-      margin-bottom:2.5rem;
+      background:transparent; color:var(--ink);
       border:1px solid var(--line);
     }
-    h2{
-      font-family:'Lora',serif;
-      font-size:1.6rem;
-      margin-bottom:1rem;
-      color:var(--accent);
-      font-weight:500;
+    .btn-secondary:hover{ background:#1f1f1f; border-color:var(--accent) }
+
+    .header-buttons{ display:flex; gap:.8rem; flex-wrap:wrap; justify-content:center; animation: fadeUp .6s var(--e) .18s both; }
+
+    .container{ max-width:var(--max); margin:auto; padding:0 1.25rem var(--space-5) }
+
+    .section-divider{
+      height:1px; background:linear-gradient(90deg,transparent, var(--line), transparent);
+      margin:var(--space-4) 0 var(--space-3);
     }
-    ul{list-style:none;padding-left:0}
-    p{margin-bottom:1rem;color:var(--quiet)}
-    a{color:var(--accent);text-decoration:none}
+
+    .card{
+      background:linear-gradient(180deg, #1b1b1b, #171717);
+      border-radius:var(--radius);
+      padding:calc(var(--space-4) - .5rem) var(--space-3);
+      margin-bottom:var(--space-4);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-0);
+      transform:translateZ(0);
+      transition:box-shadow .6s var(--e), border-color .6s var(--e), transform .6s var(--e);
+    }
+    .card:hover{ box-shadow:var(--shadow-1); border-color:#343434; transform:translateY(-1px) }
+
+    h2{
+      position:relative;
+      font-family:'Lora',serif;
+      font-size:1.55rem; font-weight:500; color:var(--accent);
+      margin-bottom:.8rem;
+    }
+    /* accent sweep on section titles when revealed */
+    h2::after{
+      content:"";
+      position:absolute; left:0; bottom:-6px; height:2px; width:0;
+      background:linear-gradient(90deg, var(--accent), #ffd8a8);
+      transition:width .7s var(--e);
+    }
+    .show h2::after{ width:120px }
+
+    ul{list-style:none}
+    p{margin-bottom:.8rem; color:var(--quiet)}
+    a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
+
+    .highlights{
+      display:flex; gap:.6rem; flex-wrap:wrap; margin:.6rem 0 0;
+    }
+    .pill{
+      background:#161616; border:1px solid var(--line); color:var(--quiet);
+      padding:.35rem .6rem; border-radius:999px; font-size:.85rem;
+    }
+
     .skills-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-      gap:1.5rem;
-      margin:1.5rem 0;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+      gap:1rem; margin:1.1rem 0;
     }
     .skill-category{
-      background:var(--paper);
-      border-radius:10px;
-      padding:1.5rem;
+      background:#161616; border-radius:10px; padding:1.1rem;
       border:1px solid var(--line);
+      transition:transform var(--t-fast) var(--e), border-color var(--t-fast) var(--e);
     }
-    .skill-category h3{
-      font-size:1.05rem;
-      font-weight:600;
-      margin-bottom:.75rem;
-      display:flex;
-      align-items:center;
-      gap:.5rem;
-    }
-    .skill-items{display:flex;flex-wrap:wrap;gap:.45rem}
+    .skill-category:hover{ transform:translateY(-1px); border-color:#333 }
+    .skill-category h3{ font-size:1rem; font-weight:600; margin-bottom:.6rem }
+    .skill-items{ display:flex; flex-wrap:wrap; gap:.4rem }
     .skill-tag{
-      background:var(--accent);
-      color:#121212;
-      font-size:.8rem;
-      padding:.35rem .7rem;
-      border-radius:14px;
-      font-weight:600;
+      background:var(--accent); color:#121212; font-size:.8rem;
+      padding:.32rem .65rem; border-radius:14px; font-weight:600;
+      transition:transform var(--t-fast) var(--e);
     }
+    .skill-tag:hover{ transform:translateY(-1px) }
+
     .skills-philosophy{
-      margin-top:2rem;
-      padding:1.5rem;
-      background:var(--paper);
-      border-left:3px solid var(--accent);
-      font-style:italic;
+      margin-top:1rem; padding:1rem 1.1rem;
+      background:#161616; border-left:3px solid var(--accent); font-style:italic;
+      border-radius:8px;
     }
+
     .contact-grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:1.5rem;
-      margin:1.5rem 0;
+      display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:1rem; margin:1.1rem 0;
     }
     .contact-method{
-      display:flex;
-      align-items:flex-start;
-      gap:1rem;
-      padding:1.2rem;
-      background:var(--paper);
-      border-radius:8px;
-      border:1px solid var(--line);
+      display:flex; gap:.9rem; padding:1rem; background:#161616;
+      border-radius:10px; border:1px solid var(--line);
+      transition:border-color var(--t-fast) var(--e), background var(--t-fast) var(--e), transform var(--t-fast) var(--e);
     }
-    .contact-icon{font-size:1.7rem}
-    .contact-info h3{font-size:1rem;font-weight:600;margin-bottom:.2rem}
-    .contact-info p{color:var(--quiet);font-size:.9rem;margin-top:.2rem}
-    .cta-section{text-align:center;margin-top:2.5rem;padding-top:1.5rem;border-top:1px solid var(--line);font-style:italic}
-    footer{text-align:center;padding:2.5rem 1rem;font-size:.9rem;color:var(--quiet);border-top:1px solid var(--line)}
-    @media(max-width:768px){
-      .container{padding:2rem 1rem 3rem}
+    .contact-method:hover{ border-color:#3a3a3a; background:#181818; transform:translateY(-1px) }
+    .contact-icon{font-size:1.4rem}
+    .contact-info h3{font-size:1rem; font-weight:600; margin-bottom:.2rem}
+    .contact-info p{color:var(--quiet); font-size:.92rem; margin-top:.2rem}
+    .availability{ margin-top:.2rem; font-size:.9rem; color:var(--quiet) }
+
+    .cta-section{ text-align:center; margin-top:2rem; padding-top:1.2rem; border-top:1px solid var(--line); font-style:italic }
+
+    footer{
+      text-align:center; padding:2rem 1rem; font-size:.92rem; color:var(--quiet);
+      border-top:1px solid var(--line);
+    }
+
+    /* Anchor sections account for sticky header */
+    section[id]{ scroll-margin-top: var(--headerH) }
+
+    /* reveal on scroll */
+    .reveal{ opacity:0; transform:translateY(10px); transition:opacity .6s var(--e), transform .6s var(--e) }
+    .reveal.show{ opacity:1; transform:none }
+
+    /* Respect reduced motion */
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .btn,.card,.contact-method,.skill-category,.skill-tag{transition:none}
+      .reveal{opacity:1; transform:none}
+      .progress{display:none}
+      .blob{display:none}
+      body{animation:none; opacity:1; transform:none}
+    }
+
+    @media (max-width:768px){
+      .container{padding-bottom:var(--space-4)}
       h1{font-size:2.3rem}
-      .tagline{font-size:1.15rem}
+      .tagline{font-size:1.05rem}
+      .blob{opacity:.08}
+    }
+
+    /* Print */
+    @media print{
+      .nav, .btn, .btn-secondary, .header-buttons, .cta-section a, .blob, .progress, #toTop{ display:none !important }
+      body{ background:#fff; color:#111 }
+      .card{ box-shadow:none; border-color:#ddd; background:#fff }
+      a{ color:#000; text-decoration:underline }
+      a::after{ content:" (" attr(href) ")"; font-size:.85em; color:#555 }
     }
   </style>
 </head>
 
 <body>
+  <!-- scroll progress bar -->
+  <div class="progress" aria-hidden="true"></div>
 
-<header>
-  <h1>Muhammad Alfaz</h1>
-  <p class="tagline">is a curious student who believes great teams start with great relationships. I'm passionate about understanding people and helping them shine.</p>
-  <div class="header-buttons">
-    <button class="btn" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Let's Connect</button>
-    <button class="btn btn-secondary" onclick="document.querySelector('.about').scrollIntoView({behavior:'smooth'})">Learn More</button>
+  <!-- Minimal sticky nav with monogram -->
+  <nav class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <div class="brand" aria-label="Site brand">
+        <span class="dot" aria-hidden="true"></span>
+        <span>Muhammad Alfaz</span>
+      </div>
+      <div style="display:flex;gap:.25rem">
+        <a href="#about" data-spy>About</a>
+        <a href="#education" data-spy>Education</a>
+        <a href="#mindset" data-spy>Approach</a>
+        <a href="#skills" data-spy>Skills</a>
+        <a href="#contact" data-spy>Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <header>
+    <!-- soft floating blobs -->
+    <div class="blob b1" aria-hidden="true"></div>
+    <div class="blob b2" aria-hidden="true"></div>
+
+    <div>
+      <h1 aria-label="Muhammad Alfaz, HR and leadership aspirant">Muhammad Alfaz</h1>
+      <p class="tagline">is a curious student who believes great teams start with great relationships. I'm passionate about understanding people and helping them shine.</p>
+      <div class="header-buttons" aria-label="Primary actions">
+        <button class="btn" onclick="document.querySelector('#contact').scrollIntoView({behavior:'smooth'})">Start a conversation</button>
+        <button class="btn btn-secondary" onclick="document.querySelector('#about').scrollIntoView({behavior:'smooth'})">Read about me</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+
+    <div class="section-divider" aria-hidden="true"></div>
+
+    <section id="about" class="about card reveal">
+      <h2>About Me</h2>
+      <p>
+        Hi! I'm Alfaz, and I'm currently studying <strong>B.Com International Accounting & Finance with ACCA</strong> at Yenepoya Institute. 
+        But here's the thing. I'm not just about numbers and spreadsheets. What really gets me excited is people.
+      </p>
+      <p>
+        I've always been fascinated by how teams work (or sometimes don't work). There's something special about watching a group of people 
+        come together and create something amazing. That's why I'm drawn to HR and leadership. I want to be the person who helps 
+        others discover their potential and work better together.
+      </p>
+    </section>
+
+    <section id="education" class="education card reveal">
+      <h2>Education</h2>
+      <ul>
+        <li><strong>Yenepoya Pre-University College</strong> – Commerce (CEBA) 2023-2025</li>
+        <li><strong>Yenepoya Institute of A.S.C. & Management</strong> – B.Com International Accounting & Finance with ACCA (ongoing)</li>
+      </ul>
+    </section>
+
+    <!-- Replacement for Experience -->
+    <section id="mindset" class="mindset card reveal">
+      <h2>What I've Learned Working With People</h2>
+      <p>
+        Talking to people every day taught me something simple and powerful: listening matters more than talking. 
+        Most of the time people don’t say exactly what they mean, but they always show how they feel.
+      </p>
+      <p>
+        I’ve also learned that every complaint is someone trying to help you improve; the best customer service isn’t about fixing problems, it’s about making people feel heard and valued.
+      </p>
+    </section>
+
+    <section id="skills" class="skills card reveal">
+      <h2>What I Bring to the Table</h2>
+      <p>Here's what I'm good at and how I like to work:</p>
+
+      <!-- Highlights for quick scan (derived from your content) -->
+      <div class="highlights" aria-label="Highlights">
+        <span class="pill">People-first mindset</span>
+        <span class="pill">Active listener</span>
+        <span class="pill">Team builder</span>
+      </div>
+      
+      <div class="skills-grid">
+        <div class="skill-category">
+          <h3>💬 Communication & Connection</h3>
+          <div class="skill-items">
+            <span class="skill-tag">Heart-to-Heart Communication</span>
+            <span class="skill-tag">Active Listening</span>
+            <span class="skill-tag">Emotional Intelligence</span>
+          </div>
+        </div>
+        
+        <div class="skill-category">
+          <h3>🧠 Thinking & Analysis</h3>
+          <div class="skill-items">
+            <span class="skill-tag">Connecting the Dots</span>
+            <span class="skill-tag">Creative Problem Solving</span>
+            <span class="skill-tag">Strategic Thinking</span>
+          </div>
+        </div>
+        
+        <div class="skill-category">
+          <h3>👥 Leadership & Teamwork</h3>
+          <div class="skill-items">
+            <span class="skill-tag">People-First Leadership</span>
+            <span class="skill-tag">Team Building</span>
+            <span class="skill-tag">Conflict Resolution</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="skills-philosophy">
+        <p><em>I think the best solutions come from really understanding people. What drives them, what worries them, and what they're hoping for.</em></p>
+      </div>
+    </section>
+
+    <section id="contact" class="contact card reveal">
+      <h2>Get in touch</h2>
+      <p>I'd love to chat. Whether you want to talk about HR, leadership, or just share a cool story, I'm all ears.</p>
+      
+      <div class="contact-grid">
+        <div class="contact-method">
+          <div class="contact-icon">📞</div>
+          <div class="contact-info">
+            <h3>Phone</h3>
+            <a href="tel:+918722609985" rel="nofollow">+91 87226 09985</a>
+            <p>Call me anytime. I love talking to new people.</p>
+            <div class="availability">Usually available evenings IST.</div>
+          </div>
+        </div>
+        
+        <div class="contact-method">
+          <div class="contact-icon">✉️</div>
+          <div class="contact-info">
+            <h3>Email</h3>
+            <a href="mailto:muhammadalfaz787@gmail.com" rel="nofollow">muhammadalfaz787@gmail.com</a>
+            <p>Shoot me an email. I usually reply pretty quickly.</p>
+          </div>
+        </div>
+        
+        <div class="contact-method">
+          <div class="contact-icon">🔗</div>
+          <div class="contact-info">
+            <h3>LinkedIn</h3>
+            <a href="https://www.linkedin.com/in/muhammad-alfaz" target="_blank" rel="noopener">Visit my LinkedIn profile</a>
+            <p>Let's connect and grow our networks together</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="cta-section">
+        <p><em>Every conversation is a chance to learn something new. Don't be shy, reach out.</em></p>
+      </div>
+    </section>
+
   </div>
-</header>
 
-<div class="container">
+  <footer>
+    <span>Designed by Muhammad Alfaz</span>
+    <div style="margin-top:.4rem; font-size:.85rem">Last updated: <span id="updated"></span></div>
+  </footer>
 
-  <section class="about card">
-    <h2>About Me</h2>
-    <p>
-      Hi! I'm Alfaz, and I'm currently studying <strong>B.Com International Accounting & Finance with ACCA</strong> at Yenepoya Institute. 
-      But here's the thing. I'm not just about numbers and spreadsheets. What really gets me excited is people.
-    </p>
-    <p>
-      I've always been fascinated by how teams work (or sometimes don't work). There's something special about watching a group of people 
-      come together and create something amazing. That's why I'm drawn to HR and leadership. I want to be the person who helps 
-      others discover their potential and work better together.
-    </p>
-  </section>
+  <button id="toTop" aria-label="Back to top" style="
+    position:fixed; right:16px; bottom:16px; border:1px solid var(--line);
+    background:#181818; color: var(--ink); padding:.6rem .8rem; border-radius:10px;
+    display:none; box-shadow:var(--shadow-0);">Top</button>
 
-  <section class="education card">
-    <h2>Education</h2>
-    <ul>
-      <li><strong>Yenepoya Pre-University College</strong> – Commerce (CEBA) 2023-2025</li>
-      <li><strong>Yenepoya Institute of A.S.C. & Management</strong> – B.Com International Accounting & Finance with ACCA (ongoing)</li>
-    </ul>
-  </section>
+  <script>
+    // ---- header height var ----
+    const nav = document.querySelector('.nav');
+    const root = document.documentElement;
+    function setHeaderHeightVar(){
+      const h = nav ? nav.offsetHeight : 64;
+      root.style.setProperty('--headerH', h + 'px');
+    }
+    window.addEventListener('load', setHeaderHeightVar);
+    window.addEventListener('resize', setHeaderHeightVar);
 
-  <section class="experience card">
-    <h2>Work Experience</h2>
-    <p><strong>Customer Success Specialist – Donjons</strong> (March 2025)</p>
-    <ul>
-      <li>Talked to customers every day and learned that listening is much more important than talking</li>
-      <li>Figured out how to read between the lines. Sometimes people don't say exactly what they mean</li>
-      <li>Turned some pretty frustrating situations into positive experiences for everyone involved</li>
-      <li>Realized that every complaint is actually someone trying to help you improve</li>
-    </ul>
-    <p><em>This job taught me that the best customer service isn't about fixing problems. It's about making people feel heard and valued.</em></p>
-  </section>
+    // ---- section reveal ----
+    const revealEls = document.querySelectorAll('.reveal');
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const obs = !prefersReduced && 'IntersectionObserver' in window
+      ? new IntersectionObserver(entries=>{
+          entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('show'); obs.unobserve(e.target);} });
+        },{threshold:.12})
+      : null;
+    revealEls.forEach(el => obs ? obs.observe(el) : el.classList.add('show'));
 
-  <section class="skills card">
-    <h2>What I Bring to the Table</h2>
-    <p>Here's what I'm good at and how I like to work:</p>
-    
-    <div class="skills-grid">
-      <div class="skill-category">
-        <h3>💬 Communication & Connection</h3>
-        <div class="skill-items">
-          <span class="skill-tag">Heart-to-Heart Communication</span>
-          <span class="skill-tag">Active Listening</span>
-          <span class="skill-tag">Emotional Intelligence</span>
-        </div>
-      </div>
-      
-      <div class="skill-category">
-        <h3>🧠 Thinking & Analysis</h3>
-        <div class="skill-items">
-          <span class="skill-tag">Connecting the Dots</span>
-          <span class="skill-tag">Creative Problem Solving</span>
-          <span class="skill-tag">Strategic Thinking</span>
-        </div>
-      </div>
-      
-      <div class="skill-category">
-        <h3>👥 Leadership & Teamwork</h3>
-        <div class="skill-items">
-          <span class="skill-tag">People-First Leadership</span>
-          <span class="skill-tag">Team Building</span>
-          <span class="skill-tag">Conflict Resolution</span>
-        </div>
-      </div>
-    </div>
-    
-    <div class="skills-philosophy">
-      <p><em>I think the best solutions come from really understanding people. What drives them, what worries them, and what they're hoping for.</em></p>
-    </div>
-  </section>
+    // ---- back to top + progress ----
+    const toTop = document.getElementById('toTop');
+    const progress = document.querySelector('.progress');
+    window.addEventListener('scroll', () => {
+      toTop.style.display = window.scrollY > 600 ? 'block' : 'none';
+      const h = document.documentElement;
+      const scrolled = (h.scrollTop) / (h.scrollHeight - h.clientHeight);
+      if (progress) progress.style.transform = `scaleX(${Math.max(0, Math.min(1, scrolled))})`;
+    });
+    if (toTop) {
+      toTop.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+    }
 
-  <section id="contact" class="contact card">
-    <h2>Let's Connect!</h2>
-    <p>I'd love to chat. Whether you want to talk about HR, leadership, or just share a cool story, I'm all ears.</p>
-    
-    <div class="contact-grid">
-      <div class="contact-method">
-        <div class="contact-icon">📞</div>
-        <div class="contact-info">
-          <h3>Phone</h3>
-          <a href="tel:+918722609985">+91 87226 09985</a>
-          <p>Call me anytime. I love talking to new people.</p>
-        </div>
-      </div>
-      
-      <div class="contact-method">
-        <div class="contact-icon">✉️</div>
-        <div class="contact-info">
-          <h3>Email</h3>
-          <a href="mailto:muhammadalfaz787@gmail.com">muhammadalfaz787@gmail.com</a>
-          <p>Shoot me an email. I usually reply pretty quickly.</p>
-        </div>
-      </div>
-      
-      <div class="contact-method">
-        <div class="contact-icon">🔗</div>
-        <div class="contact-info">
-          <h3>LinkedIn</h3>
-          <a href="https://www.linkedin.com/in/muhammad-alfaz" target="_blank">LinkedIn</a>
-          <p>Let's connect and grow our networks together</p>
-        </div>
-      </div>
-    </div>
-    
-    <div class="cta-section">
-      <p><em>Every conversation is a chance to learn something new. Don't be shy, reach out.</em></p>
-    </div>
-  </section>
+    // ---- header-aware smooth scroll for nav clicks ----
+    const spyLinks = [...document.querySelectorAll('a[data-spy]')];
+    spyLinks.forEach(a => {
+      a.addEventListener('click', (e) => {
+        const href = a.getAttribute('href');
+        if (!href || !href.startsWith('#')) return;
+        const target = document.querySelector(href);
+        if (!target) return;
+        e.preventDefault();
+        const headerH = nav ? nav.offsetHeight : 64;
+        const y = target.getBoundingClientRect().top + window.scrollY - headerH - 8;
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        spyLinks.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
+        a.classList.add('active');
+        a.setAttribute('aria-current','true');
+      });
+    });
 
-</div>
+    // ---- scroll-spy with dynamic header offset ----
+    let spyObs = null;
+    function setupSpy(){
+      if (!('IntersectionObserver' in window)) return;
+      if (spyObs) spyObs.disconnect();
 
-<footer>
-  Designed by Muhammad Alfaz •
-  <a href="javascript:window.print()">Save as PDF</a>
-</footer>
+      const headerH = nav ? nav.offsetHeight : 64;
+      const topMargin = -(headerH + 10) + 'px';
+      spyObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const id = '#' + entry.target.id;
+          const link = spyLinks.find(a => a.getAttribute('href') === id);
+          if (!link) return;
+          if (entry.isIntersecting) {
+            spyLinks.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
+            link.classList.add('active');
+            link.setAttribute('aria-current', 'true');
+          }
+        });
+      }, { rootMargin: `${topMargin} 0px -55% 0px`, threshold: 0.01 });
 
-<script>console.log("Portfolio crafted by Muhammad Alfaz");</script>
+      const sections = spyLinks.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+      sections.forEach(sec => spyObs.observe(sec));
+    }
+    window.addEventListener('load', setupSpy);
+    window.addEventListener('resize', () => { setHeaderHeightVar(); setupSpy(); });
+
+    // last updated
+    document.getElementById('updated').textContent = new Date().toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'});
+  </script>
 </body>
 </html>
